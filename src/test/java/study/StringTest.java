@@ -7,25 +7,29 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
 public class StringTest {
+
     @Test
     void replace() {
         String actual = "abc".replace("b", "d");
         assertThat(actual).isEqualTo("adc");
     }
 
-    @DisplayName("split 1,2")
-    @Test
-    void split12(){
-        String[] actual = "1,2".split(",");
-        assertThat(actual).contains("1");
-        assertThat(actual).contains("2");
-    }
+    @Nested
+    class split {
+        @DisplayName("1이랑 2가 잘 분리 되는지")
+        @Test
+        void split1() {
+            String[] actual = "1,2".split(",");
+            assertThat(actual).contains("1");
+            assertThat(actual).contains("2");
+        }
 
-    @DisplayName("split 1")
-    @Test
-    void split1(){
-        String[] actual = "1".split(",");
-        assertThat(actual).containsExactly("1");
+        @DisplayName("1만 포함하는 배열 반환되는지")
+        @Test
+        void split2() {
+            String[] actual = "1".split(",");
+            assertThat(actual).containsExactly("1");
+        }
     }
 
     @Test

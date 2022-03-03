@@ -39,15 +39,15 @@ public class SetTest {
     @DisplayName("Set contain Parameterized 테스트")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3})
-    void isContainsWithParameters(int number){
+    void isContains1(int number){
         assertThat(numbers).contains(number);
 
     }
 
-    @DisplayName("Set contain ParameterizedCSV 테스트")
+    @DisplayName("Set contain CSV 테스트")
     @ParameterizedTest
     @CsvSource({"1,true", "2,true", "3,true", "4,false", "5,false"})
-    void isContainsWithCSV(int number, boolean expected){
+    void isContains2(int number, boolean expected){
         Assertions.assertEquals(numbers.contains(number), expected);
     }
 }
