@@ -1,6 +1,5 @@
 package study2;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import study2.operator.DivideOperator;
 import study2.operator.Operator;
@@ -39,7 +38,7 @@ public class StringCalculatorTest {
         /*Assertions.assertThrows(ArithmeticException.class,
                 () -> stringCalculator.tryTocalculate(value, nextValue, devideOperator));*/
 
-        assertThatThrownBy(() -> stringCalculator.tryTocalculate(value, nextValue, devideOperator))
+        assertThatThrownBy(() -> stringCalculator.tryToCalculate(value, nextValue, devideOperator))
                 .isInstanceOf(ArithmeticException.class)
                 .hasMessageContaining("0은 나누는 수가 될 수 없습니다.");
     }

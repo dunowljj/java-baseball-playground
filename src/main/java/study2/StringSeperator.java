@@ -3,12 +3,12 @@ package study2;
 import java.util.MissingFormatArgumentException;
 import java.util.regex.Pattern;
 
-public class StringAnalyzer {
+public class StringSeperator {
     private final String NUMBER_REGEX_PATTERN = "^[0-9]+$";
     private int[] numberSources;
     private String[] operatorSources;
-    public StringAnalyzer(){}
-    private StringAnalyzer(int[] numbers, String[] operators) {
+    public StringSeperator(){}
+    private StringSeperator(int[] numbers, String[] operators) {
         this.numberSources = numbers;
         this.operatorSources = operators;
     }
@@ -16,12 +16,12 @@ public class StringAnalyzer {
     /*
     refine : 입력값을 split 후, 만들어진 배열의 길이를 체크하고, 두 개의 배열에 배분하여 반환한다.
      */
-    public StringAnalyzer refine(String input) throws IllegalArgumentException{
+    public StringSeperator refine(String input) throws IllegalArgumentException{
         String[] inputArr = input.split(" ");
 
         checkLengthIsEvenAndThrow(inputArr);
 
-        StringAnalyzer result = divideOperatorsWithNumsFrom(inputArr);
+        StringSeperator result = divideOperatorsWithNumsFrom(inputArr);
         return result;
     }
     public void checkLengthIsEvenAndThrow(String[] inputArr){
@@ -32,7 +32,7 @@ public class StringAnalyzer {
     /*
     String 배열로부터 연산자와 숫자를 두 배열로 분리하기
      */
-    public StringAnalyzer divideOperatorsWithNumsFrom(String[] inputArr){
+    public StringSeperator divideOperatorsWithNumsFrom(String[] inputArr){
         int[] numbers = new int[inputArr.length - inputArr.length/2];
         String[] operators = new String[inputArr.length/2];
 
@@ -47,7 +47,7 @@ public class StringAnalyzer {
                 operators[countOper++] = inputArr[i];
             }
         }
-        return new StringAnalyzer(numbers, operators);
+        return new StringSeperator(numbers, operators);
     }
     public void isNumber(String number){
         boolean regex = Pattern.matches(NUMBER_REGEX_PATTERN, number);

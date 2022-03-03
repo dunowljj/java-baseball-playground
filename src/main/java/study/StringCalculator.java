@@ -9,7 +9,6 @@ public class StringCalculator {
     public int calculate(String input) {
         String[] inputArr = input.split(" ");
 
-
         int fristValue = Integer.parseInt(inputArr[0]);
         int value = fristValue;
 

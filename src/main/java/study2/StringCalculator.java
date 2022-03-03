@@ -5,18 +5,18 @@ import study2.operator.*;
 import java.util.MissingFormatArgumentException;
 
 public class StringCalculator{
-    private StringAnalyzer stringAnalyzer;
+    private StringSeperator stringAnalyzer;
     private OperatorFactoryImpl operatorFactoryImpl;
     private int value;
     private int nextValue;
     private int startValue;
     public StringCalculator() {
-        this.stringAnalyzer = new StringAnalyzer();
+        this.stringAnalyzer = new StringSeperator();
         this.operatorFactoryImpl = new OperatorFactoryImpl();
     }
 
     public int calculate(String input){
-        StringAnalyzer source = stringAnalyzer.refine(input);
+        StringSeperator source = stringAnalyzer.refine(input);
         String[] operatorSources = source.getOperatorSources();
         int[] numberSources = source.getNumberSources();
 
@@ -28,16 +28,15 @@ public class StringCalculator{
         value = startValue;
 
         for(int i=0; i<numberSources.length-1; i++) {
-
             Operator operator = operatorFactoryImpl.create(operatorSources[i]);
             nextValue = numberSources[i + 1];
 
-            value = tryTocalculate(value, nextValue, operator);
+            value = tryToCalculate(value, nextValue, operator);
         }
         return value;
     }
 
-    public int tryTocalculate(int value, int nextValue, Operator operator){
+    public int tryToCalculate(int value, int nextValue, Operator operator){
         try {
             value = operator.operate(value, nextValue);
         } catch (ArithmeticException e) {

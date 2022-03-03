@@ -7,9 +7,9 @@ import java.util.MissingFormatArgumentException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class StringAnalyzerTest {
+class StringSeperatorTest {
 
-    StringAnalyzer stringAnalyzer = new StringAnalyzer();
+    StringSeperator stringSeperator = new StringSeperator();
 
     @Test
     void 숫자배열_반환테스트() {
@@ -19,11 +19,11 @@ class StringAnalyzerTest {
         int[] expectedArr1 = {3, 5, 2, 6, 1, 2};
 
         //when
-        stringAnalyzer = stringAnalyzer.divideOperatorsWithNumsFrom(inputArr);
+        stringSeperator = stringSeperator.divideOperatorsWithNumsFrom(inputArr);
 
         //then
         for (int i = 0; i < expectedArr1.length; i++) {
-            assertThat(stringAnalyzer.getNumberSources()[i] == expectedArr1[i]).isTrue();
+            assertThat(stringSeperator.getNumberSources()[i] == expectedArr1[i]).isTrue();
         }
 
     }
@@ -36,11 +36,11 @@ class StringAnalyzerTest {
         String[] expectedArr = {"+", "-", "+", "/", "*"};
 
         //when
-        stringAnalyzer = stringAnalyzer.divideOperatorsWithNumsFrom(inputArr);
+        stringSeperator = stringSeperator.divideOperatorsWithNumsFrom(inputArr);
 
         //then
         for (int i = 0; i < expectedArr.length; i++) {
-            assertThat(stringAnalyzer.getOperatorSources()[i]).isEqualTo(expectedArr[i]);
+            assertThat(stringSeperator.getOperatorSources()[i]).isEqualTo(expectedArr[i]);
         }
     }
 
@@ -52,11 +52,11 @@ class StringAnalyzerTest {
         int[] expectedArr1 = {3, 5, 2, 6, 1, 2};
 
         //when
-        stringAnalyzer = stringAnalyzer.refine(input);
+        stringSeperator = stringSeperator.refine(input);
 
         //then
         for (int i = 0; i < expectedArr1.length; i++) {
-            assertThat(stringAnalyzer.getNumberSources()[i] == expectedArr1[i]).isTrue();
+            assertThat(stringSeperator.getNumberSources()[i] == expectedArr1[i]).isTrue();
         }
 
     }
@@ -68,11 +68,11 @@ class StringAnalyzerTest {
         String[] expectedArr = {"+", "-", "+", "/", "*"};
 
         //when
-        stringAnalyzer = stringAnalyzer.refine(input);
+        stringSeperator = stringSeperator.refine(input);
 
         //then
         for (int i = 0; i < expectedArr.length; i++) {
-            assertThat(stringAnalyzer.getOperatorSources()[i]).isEqualTo(expectedArr[i]);
+            assertThat(stringSeperator.getOperatorSources()[i]).isEqualTo(expectedArr[i]);
         }
     }
     @Test
@@ -81,7 +81,7 @@ class StringAnalyzerTest {
         String input = "% + 5 - 2 + 6 / 1 * 2";
 
         //when,then
-        assertThatThrownBy(() -> stringAnalyzer = stringAnalyzer.refine(input))
+        assertThatThrownBy(() -> stringSeperator = stringSeperator.refine(input))
                 .isInstanceOf(MissingFormatArgumentException.class)
                 .hasMessageContaining("홀수번째에는 숫자를 입력하세요.");
     }
