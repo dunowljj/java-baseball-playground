@@ -49,12 +49,11 @@ public class StringAnalyzer {
         }
         return new StringAnalyzer(numbers, operators);
     }
-    public boolean isNumber(String number){
+    public void isNumber(String number){
         boolean regex = Pattern.matches(NUMBER_REGEX_PATTERN, number);
         if(!regex){
             throw new MissingFormatArgumentException("홀수번째에는 숫자를 입력하세요.");
         }
-        return true;
     }
 
     public int[] getNumberSources() {
