@@ -30,13 +30,13 @@ public class Grader {
         }
         return new Grader(strike, ball);
     }
-    public int countStrike(String[] submittedAnswers, String[] answers, int index){
+    private int countStrike(String[] submittedAnswers, String[] answers, int index){
         if(submittedAnswers[index].equals(answers[index])){
             strike++;
         }
         return strike;
     }
-    public int countBall(String[] submittedAnswers, String[] answers, int index) {
+    private int countBall(String[] submittedAnswers, String[] answers, int index) {
         if(submittedAnswers[0].equals(answers[index]) && index != 0){
             ball++;
         }

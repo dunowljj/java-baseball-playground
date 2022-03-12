@@ -1,13 +1,11 @@
 package baseball;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
 public class NumberBaseballTest {
-    Examiner examiner = new Examiner();
     NumberBaseball baseball = new NumberBaseball();
 
     @DisplayName("readInput - 입력값을 분리해서 읽기 테스트")
@@ -34,7 +32,7 @@ public class NumberBaseballTest {
         String input = "357";
 
         //when
-        String[] submittedAnswer = baseball.readInput(input);
+        String[] submittedAnswer = baseball.makeInputToArr(input);
         //then
         assertThat(submittedAnswer[0]).isEqualTo("3");
         assertThat(submittedAnswer[1]).isEqualTo("5");
@@ -44,7 +42,7 @@ public class NumberBaseballTest {
     @Test
     void getScore(){
         //given
-        String input = "574";
+        String[] input = {"4", "5", "7"};
         String[] answers = {"4", "7", "5"};
         int expectedStrike = 1;
         int expectedBall = 2;

@@ -2,59 +2,81 @@ package baseball;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class NumberBaseball {
     boolean isCorrect = false;
     Grader grader = new Grader();
     Examiner examiner = new Examiner();
     Scanner sc = new Scanner(System.in);
-    public void doGame(){
+    public void processGame(){
+        boolean willRetry;
+        do {
+            String[] answers = examiner.makeExam();
+            playGameUntilCorrectWith(answers);
 
+            willRetry = decideRetryOrThrow();
+        } while(willRetry);
+    }
+    public void playGameUntilCorrectWith(String[] answers){
         while(!isCorrect){
             System.out.print("숫자를 입력해 주세요 : ");
 
             String input = sc.nextLine();
-            String[] answers = examiner.makeExam();
+            String checkedInput = validateInput(input);
+            String[] submittedAnswers = makeInputToArr(checkedInput);
 
-            Grader score = getScore(input,answers);
+            Grader score = getScore(submittedAnswers,answers);
             printResultByScore(score);
-
-            decideRetryOrThrow();
         }
     }
-    public Grader getScore(String input, String[] answers) {
-
-        String[] submittedAnswers = readInput(input);
-
-        return grader.countStrikeAndBall(submittedAnswers, answers);
+    public String validateInput(String input){
+        try {
+            checkInput(input);
+        } catch (InputMismatchException e){
+            System.out.println(e.getMessage());
+            validateInput(sc.nextLine());
+        }
+        return input;
+    }
+    public void checkInput(String input) throws InputMismatchException{
+        String pattern = "^[1-9]{3}$";
+        boolean regex = Pattern.matches(pattern,input);
+        if(!regex){
+            throw new InputMismatchException("3자리 숫자를 연속해서 입력해주세요. ex) 123");
+        }
+    }
+    public Grader getScore(String[] submittedAnswers, String[] answers) {
+        Grader score = grader.countStrikeAndBall(submittedAnswers, answers);
+        return score;
     }
 
-    public void decideRetryOrThrow(){
+    // 1,2번 외에 다른 것 입력 시 다시 물어본다.
+    public boolean decideRetryOrThrow(){
+        boolean willRetry = false;
         try {
-            decideRetry();
+            willRetry = askContinue();
         } catch (InputMismatchException e) {
             System.out.println(e.getMessage());
+            willRetry = decideRetryOrThrow();
         }
+        return willRetry;
     }
-    public void decideRetry(){
+    public boolean askContinue() throws InputMismatchException{
         String input = "";
-        if (isCorrect){
-            examiner.setSolved(true);
-            input = sc.nextLine();
-        }
+        input = sc.nextLine();
+
         if (input.equals("1")){
             isCorrect = false;
-            return;
+            return true;
         }
         if (input.equals("2")){
             System.exit(0);
         }
-       /* if(!input.equals("1") && !input.equals("2")){
-            throw new InputMismatchException("1 또는 2를 입력하세요");
-        }*/
+        throw new InputMismatchException("1 또는 2를 입력하세요");
     }
 
-    public String[] readInput(String input){
+    public String[] makeInputToArr(String input){
         String[] inputArr = new String[3];
 
         for (int i=0; i<inputArr.length; i++){
@@ -74,7 +96,7 @@ public class NumberBaseball {
 
         printMessageIfBallAndStrike(grade);
     }
-    public void printMessageIfQuit(Grader grade){
+    private void printMessageIfQuit(Grader grade){
         int strike = grade.getStrike();
 
         if (strike == 3) {
@@ -82,7 +104,7 @@ public class NumberBaseball {
             isCorrect = true;
         }
     }
-    public void printMessageIfNothing(Grader grade){
+    private void printMessageIfNothing(Grader grade){
         int strike = grade.getStrike();
         int ball = grade.getBall();
 
@@ -90,7 +112,7 @@ public class NumberBaseball {
             System.out.println("nothing");
         }
     }
-    public void printMessageIfBall(Grader grade){
+    private void printMessageIfBall(Grader grade){
         int strike = grade.getStrike();
         int ball = grade.getBall();
 
@@ -98,7 +120,7 @@ public class NumberBaseball {
             System.out.println(ball+"볼");
         }
     }
-    public void printMessageIfStrike(Grader grade){
+    private void printMessageIfStrike(Grader grade){
         int strike = grade.getStrike();
         int ball = grade.getBall();
 
@@ -106,7 +128,7 @@ public class NumberBaseball {
             System.out.println(strike+"스트라이크");
         }
     }
-    public void printMessageIfBallAndStrike(Grader grade){
+    private void printMessageIfBallAndStrike(Grader grade){
         int strike = grade.getStrike();
         int ball = grade.getBall();
 

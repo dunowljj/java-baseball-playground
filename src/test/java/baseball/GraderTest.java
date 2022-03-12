@@ -65,6 +65,24 @@ public class GraderTest {
         Assertions.assertThat(strike).isEqualTo(expectedStrike);
         Assertions.assertThat(ball).isEqualTo(expectedBall);
     }
+    @DisplayName("스트라이크, 볼 카운팅 테스트 - 2볼 1스트라이크")
+    @Test
+    void grade_2ball_1strike(){
+        //given
+        String[] input = {"3","5","4"};
+        String[] answers = {"4", "5", "3"};
+        int expectedStrike = 1;
+        int expectedBall = 2;
+
+        //when
+        grader = grader.countStrikeAndBall(input,answers);
+        int strike = grader.getStrike();
+        int ball = grader.getBall();
+
+        //then
+        Assertions.assertThat(strike).isEqualTo(expectedStrike);
+        Assertions.assertThat(ball).isEqualTo(expectedBall);
+    }
     @DisplayName("스트라이크, 볼 카운팅 테스트 - 0볼 0스트라이크")
     @Test
     void grade_nothing(){
