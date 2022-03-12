@@ -1,21 +1,24 @@
-package baseball;
+package TestBundle;
+
+import baseball.Examiner;
+import baseball.Grader;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class NumberBaseball {
+public class NumberBaseballBundle {
     boolean isCorrect = false;
     Scanner sc = new Scanner(System.in);
     public void processGame(){
         Examiner examiner = new Examiner();
-        boolean willRetry;
+        boolean willRetry = false;
 
         do {
             String[] answers = examiner.makeExam();
             playGameUntilCorrectWith(answers);
-
-            willRetry = decideRetryOrThrow();
+            String input = "1";
+            willRetry = decideRetryOrThrow(input);
         } while(willRetry);
     }
     public void playGameUntilCorrectWith(String[] answers){
@@ -46,8 +49,36 @@ public class NumberBaseball {
             throw new InputMismatchException("잘못된 입력입니다. 3자리 숫자를 연속해서 입력해주세요. ex) 123");
         }
     }
+    public Grader getScore(String[] submittedAnswers, String[] answers) {
+        Grader grader = new Grader();
+        Grader score = grader.countStrikeAndBall(submittedAnswers, answers);
+        return score;
+    }
 
-    private String[] makeInputToArr(String input){
+    // 1,2번 외에 다른 것 입력 시 다시 물어본다.
+    public boolean decideRetryOrThrow(String input){
+        boolean willRetry = false;
+        try {
+            willRetry = askContinue(input);
+        } catch (InputMismatchException e) {
+            System.out.println(e.getMessage());
+            willRetry = true;
+        }
+        return willRetry;
+    }
+    public boolean askContinue(String input) throws InputMismatchException{
+        if (input.equals("1")){
+            isCorrect = false;
+            return true;
+        }
+        if (input.equals("2")){
+            return false;
+//            System.exit(0);
+        }
+        throw new InputMismatchException("1 또는 2를 입력하세요");
+    }
+
+    public String[] makeInputToArr(String input){
         String[] inputArr = new String[3];
 
         for (int i=0; i<inputArr.length; i++){
@@ -55,13 +86,6 @@ public class NumberBaseball {
         }
         return inputArr;
     }
-
-    public Grader getScore(String[] submittedAnswers, String[] answers) {
-        Grader grader = new Grader();
-        Grader score = grader.countStrikeAndBall(submittedAnswers, answers);
-        return score;
-    }
-
     public void printResultByScore(Grader grade) {
         printMessageIfQuit(grade);
 
@@ -113,33 +137,5 @@ public class NumberBaseball {
             System.out.println(ball+"볼"+strike+"스트라이크");
         }
     }
-
-    // 1,2번 외에 다른 것 입력 시 다시 물어본다.
-    private boolean decideRetryOrThrow(){
-        boolean willRetry;
-        try {
-            willRetry = askContinue();
-        } catch (InputMismatchException e) {
-            System.out.println(e.getMessage());
-            willRetry = decideRetryOrThrow();
-        }
-        return willRetry;
-    }
-    private boolean askContinue() throws InputMismatchException{
-        String input = "";
-        input = sc.nextLine();
-
-        if (input.equals("1")){
-            isCorrect = false;
-            return true;
-        }
-        if (input.equals("2")){
-            System.exit(0);
-        }
-        throw new InputMismatchException("1 또는 2를 입력하세요");
-    }
-
-
-
 
 }
