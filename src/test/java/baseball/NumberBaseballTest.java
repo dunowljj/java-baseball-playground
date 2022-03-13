@@ -30,26 +30,6 @@ public class NumberBaseballTest {
         assertThat(submittedAnswer[2]).isEqualTo("7");
     }
 
-    @DisplayName("getScore - 볼, 스트라이크 횟수 잘 세는지 테스트")
-    @Test
-    void getScore(){
-        //given
-        String[] input = {"4", "5", "7"};
-        String[] answers = {"4", "7", "5"};
-        int expectedStrike = 1;
-        int expectedBall = 2;
-
-
-        //when
-        Grader grade = baseball.getScore(input,answers);
-        int strike = grade.getStrike();
-        int ball = grade.getBall();
-
-        //then
-        assertThat(strike).isEqualTo(expectedStrike);
-        assertThat(ball).isEqualTo(expectedBall);
-    }
-
     @DisplayName("checkInput - 연속된 숫자 문자열 세 자리 정규표현식 매칭 테스트")
     @ParameterizedTest
     @ValueSource(strings = {"123","456","789","124"})
@@ -84,6 +64,5 @@ public class NumberBaseballTest {
         //then
         assertThat(output).isEqualTo("12");
     }
-
 
 }

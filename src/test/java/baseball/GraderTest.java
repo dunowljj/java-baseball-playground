@@ -19,7 +19,7 @@ public class GraderTest {
         int expectedBall = 0;
 
         //when
-        grader = grader.countStrikeAndBall(input,answers);
+        grader.countStrikeAndBall(input,answers);
         int strike = grader.getStrike();
         int ball = grader.getBall();
 
@@ -38,7 +38,7 @@ public class GraderTest {
         int expectedBall = 1;
 
         //when
-        grader = grader.countStrikeAndBall(input,answers);
+        grader.countStrikeAndBall(input,answers);
         int strike = grader.getStrike();
         int ball = grader.getBall();
 
@@ -57,7 +57,7 @@ public class GraderTest {
         int expectedBall = 1;
 
         //when
-        grader = grader.countStrikeAndBall(input,answers);
+        grader.countStrikeAndBall(input,answers);
         int strike = grader.getStrike();
         int ball = grader.getBall();
 
@@ -75,7 +75,7 @@ public class GraderTest {
         int expectedBall = 2;
 
         //when
-        grader = grader.countStrikeAndBall(input,answers);
+        grader.countStrikeAndBall(input,answers);
         int strike = grader.getStrike();
         int ball = grader.getBall();
 
@@ -93,7 +93,7 @@ public class GraderTest {
         int expectedBall = 0;
 
         //when
-        grader = grader.countStrikeAndBall(input,answers);
+        grader.countStrikeAndBall(input,answers);
         int strike = grader.getStrike();
         int ball = grader.getBall();
 

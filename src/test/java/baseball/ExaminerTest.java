@@ -37,4 +37,19 @@ public class ExaminerTest {
         //then
         Assertions.assertThat(givenNum).contains(answers);
     }
+
+    @DisplayName("생성한 난수 문자배열 중복되지 않는지 테스트(10회 반복)")
+    @Test
+    void makeExam_duplication(){
+        //when
+        String[] answers = examiner.makeExam();
+
+
+        //then
+        for(int i=0; i<10; i++){
+            for(int j=0; j<3; j++){
+                Assertions.assertThat(answers[j%3] != answers[(j+1)%3]).isTrue();
+            }
+        }
+    }
 }

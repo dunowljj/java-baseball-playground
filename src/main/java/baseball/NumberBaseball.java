@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class NumberBaseball {
-    boolean isCorrect = false;
+    Grader grader = new Grader();
     Scanner sc = new Scanner(System.in);
     public void processGame(){
         Examiner examiner = new Examiner();
@@ -19,15 +19,14 @@ public class NumberBaseball {
         } while(willRetry);
     }
     public void playGameUntilCorrectWith(String[] answers){
-        while(!isCorrect){
+        while(!grader.isCorrect()){
             System.out.print("숫자를 입력해 주세요 : ");
 
             String input = sc.nextLine();
             String checkedInput = validateInput(input);
             String[] submittedAnswers = makeInputToArr(checkedInput);
 
-            Grader score = getScore(submittedAnswers,answers);
-            printResultByScore(score);
+            grade(submittedAnswers, answers);
         }
     }
     public String validateInput(String input){
@@ -51,67 +50,15 @@ public class NumberBaseball {
         String[] inputArr = new String[3];
 
         for (int i=0; i<inputArr.length; i++){
-            inputArr[i] = input.substring(i,i+1);
+            inputArr[i] = input.charAt(i)+"";
         }
         return inputArr;
     }
 
-    public Grader getScore(String[] submittedAnswers, String[] answers) {
-        Grader grader = new Grader();
-        Grader score = grader.countStrikeAndBall(submittedAnswers, answers);
-        return score;
-    }
-
-    public void printResultByScore(Grader grade) {
-        printMessageIfQuit(grade);
-
-        printMessageIfNothing(grade);
-
-        printMessageIfBall(grade);
-
-        printMessageIfStrike(grade);
-
-        printMessageIfBallAndStrike(grade);
-    }
-    private void printMessageIfQuit(Grader grade){
-        int strike = grade.getStrike();
-
-        if (strike == 3) {
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요");
-            isCorrect = true;
-        }
-    }
-    private void printMessageIfNothing(Grader grade){
-        int strike = grade.getStrike();
-        int ball = grade.getBall();
-
-        if (strike == 0 && ball == 0) {
-            System.out.println("nothing");
-        }
-    }
-    private void printMessageIfBall(Grader grade){
-        int strike = grade.getStrike();
-        int ball = grade.getBall();
-
-        if (strike == 0 && ball > 0) {
-            System.out.println(ball+"볼");
-        }
-    }
-    private void printMessageIfStrike(Grader grade){
-        int strike = grade.getStrike();
-        int ball = grade.getBall();
-
-        if (strike > 0 && ball == 0) {
-            System.out.println(strike+"스트라이크");
-        }
-    }
-    private void printMessageIfBallAndStrike(Grader grade){
-        int strike = grade.getStrike();
-        int ball = grade.getBall();
-
-        if (strike > 0 && ball > 0){
-            System.out.println(ball+"볼"+strike+"스트라이크");
-        }
+    private void grade(String[] submittedAnswers, String[] answers){
+        grader.countStrikeAndBall(submittedAnswers,answers);
+        grader.checkIsAnswerCorrect();
+        grader.printResult();
     }
 
     // 1,2번 외에 다른 것 입력 시 다시 물어본다.
@@ -126,11 +73,10 @@ public class NumberBaseball {
         return willRetry;
     }
     private boolean askContinue() throws InputMismatchException{
-        String input = "";
-        input = sc.nextLine();
+        String input = sc.nextLine();
 
         if (input.equals("1")){
-            isCorrect = false;
+            grader.setCorrect(false);
             return true;
         }
         if (input.equals("2")){
@@ -138,7 +84,6 @@ public class NumberBaseball {
         }
         throw new InputMismatchException("1 또는 2를 입력하세요");
     }
-
 
 
 

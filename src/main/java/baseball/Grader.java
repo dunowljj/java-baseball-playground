@@ -2,10 +2,20 @@ package baseball;
 
 
 public class Grader {
+    private boolean isCorrect = false;
     private int strike = 0;
     private int ball = 0;
 
+
     public Grader() {
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
     }
 
     public int getStrike() {
@@ -16,19 +26,18 @@ public class Grader {
         return ball;
     }
 
-    public Grader(int strike, int ball) {
-        this.strike = strike;
-        this.ball = ball;
+    public void checkIsAnswerCorrect() {
+        if(strike == 3){
+            isCorrect = true;
+        }
     }
-
-    public Grader countStrikeAndBall(String[] submittedAnswers, String[] answers){
+    public void countStrikeAndBall(String[] submittedAnswers, String[] answers){
         strike = 0;
         ball = 0;
         for(int i=0; i<answers.length; i++){
             strike = countStrike(submittedAnswers,answers,i);
             ball = countBall(submittedAnswers,answers,i);
         }
-        return new Grader(strike, ball);
     }
     private int countStrike(String[] submittedAnswers, String[] answers, int index){
         if(submittedAnswers[index].equals(answers[index])){
@@ -47,5 +56,47 @@ public class Grader {
             ball++;
         }
         return ball;
+    }
+
+    public void printResult() {
+        printMessageIfQuit();
+
+        printMessageIfNothing();
+
+        printMessageIfBall();
+
+        printMessageIfStrike();
+
+        printMessageIfBallAndStrike();
+    }
+    private void printMessageIfQuit(){
+
+        if (strike == 3) {
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요");
+        }
+    }
+    private void printMessageIfNothing(){
+
+        if (strike == 0 && ball == 0) {
+            System.out.println("nothing");
+        }
+    }
+    private void printMessageIfBall(){
+
+        if (strike == 0 && ball > 0) {
+            System.out.println(ball+"볼");
+        }
+    }
+    private void printMessageIfStrike(){
+
+        if (strike > 0 && ball == 0) {
+            System.out.println(strike+"스트라이크");
+        }
+    }
+    private void printMessageIfBallAndStrike(){
+
+        if (strike > 0 && ball > 0){
+            System.out.println(ball+"볼"+strike+"스트라이크");
+        }
     }
 }
