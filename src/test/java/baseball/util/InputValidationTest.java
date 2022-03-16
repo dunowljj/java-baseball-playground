@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class InputValidationTest {
     InputValidation validation;
     @BeforeEach
-    void validation(){
+    void setUp(){
         validation = new InputValidation();
     }
 

@@ -1,8 +1,10 @@
 package baseball;
 
 public class Ball {
-    private int num;
+
+
     private int index;
+    private int num;
 
     public int getNum() {
         return num;
@@ -15,27 +17,35 @@ public class Ball {
     public Ball() {
     }
 
-    public Ball(int num, int index) {
-        this.num = num;
+    public Ball(int index, int num) {
         this.index = index;
+        this.num = num;
     }
 
-    public BallType checkUserBall(Ball userBall) {
+    public BallStatus check(Ball userBall) {
         if (isBall(userBall)) {
-            return BallType.BALL;
+            return BallStatus.BALL;
         }
         if (isStrike(userBall)) {
-            return BallType.STRIKE;
+            return BallStatus.STRIKE;
         }
         //아무것도 안 걸리면 NOTHING이다.
-        return BallType.NOTHING;
+        return BallStatus.NOTHING;
     }
 
     private boolean isStrike(Ball user) {
-        return num == user.getNum() && index == user.getIndex();
+        return this.equals(user);
     }
 
     private boolean isBall(Ball user) {
         return num == user.getNum() && index != user.getIndex();
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ball ball = (Ball) o;
+        return index == ball.index && num == ball.num;
+    }
+
 }
