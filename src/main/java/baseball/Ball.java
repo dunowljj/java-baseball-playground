@@ -23,17 +23,17 @@ public class Ball {
     }
 
     public BallStatus check(Ball userBall) {
-        if (isBall(userBall)) {
+        if (this.isBall(userBall)) {
             return BallStatus.BALL;
         }
-        if (isStrike(userBall)) {
+        if (this.isSTRIKE(userBall)) {
             return BallStatus.STRIKE;
         }
         //아무것도 안 걸리면 NOTHING이다.
         return BallStatus.NOTHING;
     }
 
-    private boolean isStrike(Ball user) {
+    private boolean isSTRIKE(Ball user) {
         return this.equals(user);
     }
 

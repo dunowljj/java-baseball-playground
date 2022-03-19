@@ -13,10 +13,7 @@ public class BallsTest {
 
     @BeforeEach
     void setUp(){
-        comBalls = new Balls(Arrays.asList(
-                new Ball(1, 1),
-                new Ball(2, 2),
-                new Ball(3, 3)));
+        comBalls = new Balls(Arrays.asList(1, 2, 3));
     }
 
     @DisplayName("볼들과 볼 하나 비교 - BALL")
