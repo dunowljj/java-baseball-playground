@@ -1,51 +1,49 @@
 package baseball;
 
 public class Baseball {
-    private int ball = 0;
-    private int strike = 0;
-
-    public PlayResult play(Balls comBalls, Balls userBalls) {
-        PlayResult playResult = new PlayResult();
-        count(comBalls, userBalls);
-        playResult.grade(ball, strike);
-        return playResult;
-    }
-
-    public void count(Balls comBalls, Balls userBalls){
-        this.ball = 0;
-        this.strike = 0;
-
-        for (int i = 0; i < 3; i++) {
-            BallStatus ballStatus = comBalls.check(userBalls.getBall(i));
-            countIfBALL(ballStatus);
-            countIfSTRIKE(ballStatus);
+    private String resultMessage;
+    public void play(PlayResult playResult) {
+        if(isCorrect(playResult)){
+            resultMessage = playResult.getStrike() + "스트라이크\n3개의 숫자를 모두 맞히셨습니다!";
+            System.out.println(resultMessage);
+            return;
+        }
+        if(isNOTHING(playResult)){
+            resultMessage = "nothing";
+            System.out.println(resultMessage);
+            return;
+        }
+        if(hasBothBALLAndSTRIKE(playResult)){
+            resultMessage = playResult.getBall() + "볼 " + playResult.getStrike() + "스트라이크";
+            System.out.println(resultMessage);
+            return;
+        }
+        if(hasOnlyBALL(playResult)){
+            resultMessage = playResult.getBall() + "볼";
+            System.out.println(resultMessage);
+            return;
+        }
+        if(hasOnlySTRIKE(playResult)){
+            resultMessage = playResult.getStrike() + "스트라이크";
+            System.out.println(resultMessage);
         }
     }
-
-    private void countIfBALL(BallStatus ballStatus) {
-        if(isBALL(ballStatus)){
-            ball++;
-        }
+    public boolean isCorrect(PlayResult playResult) {
+        return playResult.getStrike() == 3;
     }
-    private boolean isBALL(BallStatus ballStatus) {
-        return ballStatus == BallStatus.BALL;
+    private boolean isNOTHING(PlayResult playResult) {
+        return playResult.getBall() == 0 && playResult.getStrike() == 0;
     }
-
-    private void countIfSTRIKE(BallStatus ballStatus) {
-        if (isSTRIKE(ballStatus)) {
-            strike++;
-        }
+    private boolean hasBothBALLAndSTRIKE(PlayResult playResult) {
+        return playResult.getBall() > 0 && playResult.getStrike() > 0;
     }
-    private boolean isSTRIKE(BallStatus ballStatus) {
-        return ballStatus == BallStatus.STRIKE;
+    private boolean hasOnlySTRIKE(PlayResult playResult) {
+        return playResult.getBall() == 0 && playResult.getStrike() > 0;
     }
-
-
-    public int getBall() {
-        return ball;
+    private boolean hasOnlyBALL(PlayResult playResult) {
+        return playResult.getBall() > 0 && playResult.getStrike() == 0;
     }
-
-    public int getStrike() {
-        return strike;
+    public String getResult() {
+        return resultMessage;
     }
 }

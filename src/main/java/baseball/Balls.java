@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Balls {
 
-    private final List<Ball> balls;
+    private final List<Ball> answers;
 
     public Balls(List<Integer> answers) {
-        this.balls = mapBalls(answers);
+        this.answers = mapBalls(answers);
     }
 
     private List<Ball> mapBalls(List<Integer> answers) {
@@ -19,17 +19,28 @@ public class Balls {
         return balls;
     }
 
+    public PlayResult play(List<Integer> balls) {
+        PlayResult playResult = new PlayResult();
+        Balls userBalls = new Balls(balls);
+
+        for(Ball ball : userBalls.getBalls()){
+            BallStatus ballStatus = check(ball);
+            playResult.count(ballStatus);
+        }
+        return playResult;
+    }
+
     public BallStatus check(Ball userBall) {
-        return balls.stream()
+        return answers.stream()
                 .map((ball) -> ball.check(userBall))
                 .filter((status) -> status != BallStatus.NOTHING)
                .findFirst()
                 .orElse(BallStatus.NOTHING);
     }
     public List<Ball> getBalls() {
-        return balls;
+        return answers;
     }
     public Ball getBall(int i){
-        return balls.get(i);
+        return answers.get(i);
     }
 }
