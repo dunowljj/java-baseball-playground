@@ -7,23 +7,44 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BallGeneratorTest {
 
-    BallGenerator ballGenerator;
+    BallGenerator ballGenerator = new BallGenerator();
 
-    @DisplayName("생성된 볼이 1-9에 속하는 지 반복 테스트")
+    @DisplayName("생성된 볼이 1-9 인지 반복 테스트")
     @Test
-    void genrateBalls1() {
+    void genrateBalls_range() {
+        //when
+        Balls comBalls = ballGenerator.generateBalls();
+
+        //then
+        assertThat(comBalls.getBalls().stream().map(Ball::getNum)
+                .allMatch(num -> 1 <= num && num <= 9)).isTrue();
+    }
+
+    @DisplayName("생성된 볼이 중복이 없는지 테스트")
+    @Test
+    void genrateBalls_duplicate() {
         //given
-        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        Balls comBalls = ballGenerator.generateBalls();
+
+        //when, then
+        assertThat(comBalls.getBalls().stream().map(Ball::getNum)
+                .distinct().count()).isEqualTo(3);
+    }
+    @DisplayName("생성된 볼이 길이 테스트")
+    @Test
+    void genrateBalls_length() {
+        //given
 
         //when
         Balls comBalls = ballGenerator.generateBalls();
-        //then
-//        Assertions.assertThat(list)
-//                .contains(comBalls.getBalls().stream().mapToInt((Ball ball) -> ball.getNum()));
 
+        //then
+        assertThat(comBalls.getBalls().size()).isEqualTo(3);
     }
 }
