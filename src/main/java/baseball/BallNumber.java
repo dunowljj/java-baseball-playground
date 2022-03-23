@@ -7,12 +7,14 @@ public class BallNumber {
 
 
     public BallNumber(int no) {
-        if(no < MIN_NO || no > MAX_NO){
+        if (no < MIN_NO || no > MAX_NO) {
             throw new IllegalArgumentException("1-9 사이 숫자를 입력하세요.");
         }
         this.no = no;
     }
+
     public int getNo() {
+
         return no;
     }
 }

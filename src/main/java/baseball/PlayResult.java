@@ -5,8 +5,9 @@ public class PlayResult {
     private int strike = 0;
 
 
-    public void count(BallStatus ballStatus){
-        if(isBALL(ballStatus)){
+    public void count(BallStatus ballStatus) {
+
+        if (isBALL(ballStatus)) {
             ball++;
         }
         if (isSTRIKE(ballStatus)) {
@@ -16,47 +17,52 @@ public class PlayResult {
     private boolean isBALL(BallStatus ballStatus) {
         return ballStatus == BallStatus.BALL;
     }
+
     private boolean isSTRIKE(BallStatus ballStatus) {
         return ballStatus == BallStatus.STRIKE;
     }
 
     public String getMessage() {
-        if(isCorrect(this)){
+        if (isCorrect()) {
             return getStrike() + "스트라이크\n3개의 숫자를 모두 맞히셨습니다!";
         }
-        if(isNOTHING(this)){
+        if (isNOTHING()) {
             return "nothing";
         }
-        if(hasBothBALLAndSTRIKE(this)){
+        if (hasBothBALLAndSTRIKE()) {
             return getBall() + "볼 " + getStrike() + "스트라이크";
         }
-        if(hasOnlyBALL(this)){
+        if (hasOnlyBALL()) {
             return getBall() + "볼";
         }
-        if(hasOnlySTRIKE(this)){
+        if (hasOnlySTRIKE()) {
             return getStrike() + "스트라이크";
         }
         return "에러";
     }
-    public boolean isCorrect(PlayResult playResult) {
-        return playResult.getStrike() == 3;
+
+    public boolean isCorrect() {
+        return this.getStrike() == 3;
     }
-    private boolean isNOTHING(PlayResult playResult) {
-        return playResult.getBall() == 0 && playResult.getStrike() == 0;
+
+    private boolean isNOTHING() {
+        return this.getBall() == 0 && this.getStrike() == 0;
     }
-    private boolean hasBothBALLAndSTRIKE(PlayResult playResult) {
-        return playResult.getBall() > 0 && playResult.getStrike() > 0;
+
+    private boolean hasBothBALLAndSTRIKE() {
+        return this.getBall() > 0 && this.getStrike() > 0;
     }
-    private boolean hasOnlySTRIKE(PlayResult playResult) {
-        return playResult.getBall() == 0 && playResult.getStrike() > 0;
+
+    private boolean hasOnlySTRIKE() {
+        return this.getBall() == 0 && this.getStrike() > 0;
     }
-    private boolean hasOnlyBALL(PlayResult playResult) {
-        return playResult.getBall() > 0 && playResult.getStrike() == 0;
+    private boolean hasOnlyBALL() {
+        return this.getBall() > 0 && this.getStrike() == 0;
     }
+
     public int getBall() {
         return ball;
     }
-
     public int getStrike() {
         return strike;
     }

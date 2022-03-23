@@ -30,7 +30,7 @@ public class PlayResultTest {
 
 
         //then
-        assertThat(playResult.isCorrect(playResult)).isTrue();
+        assertThat(playResult.isCorrect()).isTrue();
     }
 
 

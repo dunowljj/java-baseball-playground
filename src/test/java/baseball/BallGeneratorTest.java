@@ -14,7 +14,7 @@ public class BallGeneratorTest {
     @Test
     void genrateBalls_range() {
         //when
-        Balls comBalls = ballGenerator.generateBalls();
+        Balls comBalls = ballGenerator.generateQuestion();
 
         //then
         assertThat(comBalls.getBalls().stream().map(Ball::getBallNum)
@@ -25,7 +25,7 @@ public class BallGeneratorTest {
     @Test
     void genrateBalls_duplicate() {
         //given
-        Balls comBalls = ballGenerator.generateBalls();
+        Balls comBalls = ballGenerator.generateQuestion();
 
         //when, then
         assertThat(comBalls.getBalls().stream().map(Ball::getBallNum)
@@ -35,7 +35,7 @@ public class BallGeneratorTest {
     @Test
     void genrateBalls_length() {
         //given
-        Balls comBalls = ballGenerator.generateBalls();
+        Balls comBalls = ballGenerator.generateQuestion();
 
         //when, then
         assertThat(comBalls.getBalls().size()).isEqualTo(3);

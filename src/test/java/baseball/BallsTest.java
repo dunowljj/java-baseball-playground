@@ -12,61 +12,67 @@ public class BallsTest {
     Balls comBalls;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         comBalls = new Balls(Arrays.asList(1, 2, 3));
     }
+
     @DisplayName("play_받아온 결과 확인 : 1볼")
     @Test
-    void play_1BALL(){
+    void play_1BALL() {
         //given, when
-        PlayResult playResult = comBalls.play(Arrays.asList(4,5,1));
+        PlayResult playResult = comBalls.play(Arrays.asList(4, 5, 1));
 
         //then
         assertThat(playResult.getBall()).isEqualTo(1);
     }
+
     @DisplayName("play_받아온 결과 확인 : 1스트라이크")
     @Test
-    void play_1STRIKE(){
+    void play_1STRIKE() {
         //given, when
-        PlayResult playResult = comBalls.play(Arrays.asList(1,4,5));
+        PlayResult playResult = comBalls.play(Arrays.asList(1, 4, 5));
 
         //then
         assertThat(playResult.getStrike()).isEqualTo(1);
     }
+
     @DisplayName("play_받아온 결과 확인 : 1볼 1스크라이크")
     @Test
-    void play_1BALL1STRIKE(){
+    void play_1BALL1STRIKE() {
         //given, when
-        PlayResult playResult = comBalls.play(Arrays.asList(1,3,5));
+        PlayResult playResult = comBalls.play(Arrays.asList(1, 3, 5));
 
         //then
         assertThat(playResult.getBall()).isEqualTo(1);
         assertThat(playResult.getStrike()).isEqualTo(1);
     }
+
     @DisplayName("play_받아온 결과 확인: 3스트라이크")
     @Test
-    void play_3STRIKE(){
+    void play_3STRIKE() {
         //given, when
-        PlayResult playResult = comBalls.play(Arrays.asList(1,2,3));
+        PlayResult playResult = comBalls.play(Arrays.asList(1, 2, 3));
 
         //then
         assertThat(playResult.getStrike()).isEqualTo(3);
     }
+
     @DisplayName("play_받아온 결과 확인: 낫싱")
     @Test
-    void play_nothing(){
+    void play_nothing() {
         //given, when
-        PlayResult playResult = comBalls.play(Arrays.asList(4,5,6));
+        PlayResult playResult = comBalls.play(Arrays.asList(4, 5, 6));
 
         //then
         assertThat(playResult.getBall()).isEqualTo(0);
         assertThat(playResult.getStrike()).isEqualTo(0);
     }
+
     @DisplayName("볼들과 볼 하나 비교 - BALL")
     @Test
-    void check_ball(){
+    void check_ball() {
         //given
-        Ball userBall = new Ball(1,3);
+        Ball userBall = new Ball(1, 3);
 
         //when
         BallStatus ballType = comBalls.check(userBall);
@@ -74,11 +80,12 @@ public class BallsTest {
         //then
         assertThat(ballType).isEqualTo(BallStatus.BALL);
     }
+
     @DisplayName("볼들과 볼 하나 비교 - STRIKE")
     @Test
-    void check_strike(){
+    void check_strike() {
         //given
-        Ball userBall = new Ball(1,1);
+        Ball userBall = new Ball(1, 1);
 
         //when
         BallStatus ballType = comBalls.check(userBall);
@@ -86,11 +93,12 @@ public class BallsTest {
         //then
         assertThat(ballType).isEqualTo(BallStatus.STRIKE);
     }
+
     @DisplayName("볼들과 볼 하나 비교 - NOTHING")
     @Test
-    void check_nothing(){
+    void check_nothing() {
         //given
-        Ball userBall = new Ball(1,5);
+        Ball userBall = new Ball(1, 5);
 
         //when
         BallStatus ballType = comBalls.check(userBall);

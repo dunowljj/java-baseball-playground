@@ -9,14 +9,15 @@ import static org.assertj.core.api.Assertions.*;
 
 public class BallTest {
     Ball comBall;
+
     @BeforeEach
-    void setUp(){
-        comBall = new Ball(3,1);
+    void setUp() {
+        comBall = new Ball(3, 1);
     }
 
     @DisplayName("볼 범위 1-9 아닐 때 예외처리")
     @Test
-    void ball_range(){
+    void ball_range() {
         //given
         assertThatThrownBy(() -> new BallNumber(10))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -25,9 +26,9 @@ public class BallTest {
 
     @DisplayName("하나의 볼을 비교 - 값만 같으면 BALL")
     @Test
-    void ball(){
+    void ball() {
         //given
-        Ball user = new Ball(2,1);
+        Ball user = new Ball(2, 1);
 
         //when
         BallStatus ballType = comBall.check(user);
@@ -38,9 +39,9 @@ public class BallTest {
 
     @DisplayName("하나의 볼을 비교 - 값과 인덱스 모두 같으면 STRIKE")
     @Test
-    void strike(){
+    void strike() {
         //given
-        Ball user = new Ball(3,1);
+        Ball user = new Ball(3, 1);
 
         //when
         BallStatus ballType = comBall.check(user);
@@ -51,7 +52,7 @@ public class BallTest {
 
     @DisplayName("하나의 볼을 비교 - 모두 다르면 NOTHING")
     @Test
-    void nothing(){
+    void nothing() {
         //given
         Ball user = new Ball(1, 3);
 

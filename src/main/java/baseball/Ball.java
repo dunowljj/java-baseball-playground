@@ -31,6 +31,7 @@ public class Ball{
     private boolean isBall(Ball user) {
         return ballNum.getNo() == user.getBallNum() && index != user.getIndex();
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
