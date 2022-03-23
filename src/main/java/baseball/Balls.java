@@ -29,7 +29,9 @@ public class Balls {
         }
         return playResult;
     }
-
+    public List<Ball> getBalls() {
+        return answers;
+    }
     public BallStatus check(Ball userBall) {
         return answers.stream()
                 .map((ball) -> ball.check(userBall))
@@ -37,9 +39,7 @@ public class Balls {
                .findFirst()
                 .orElse(BallStatus.NOTHING);
     }
-    public List<Ball> getBalls() {
-        return answers;
-    }
+
     public Ball getBall(int i){
         return answers.get(i);
     }

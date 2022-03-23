@@ -1,5 +1,6 @@
 package baseball;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,15 @@ public class BallTest {
     @BeforeEach
     void setUp(){
         comBall = new Ball(3,1);
+    }
+
+    @DisplayName("볼 범위 1-9 아닐 때 예외처리")
+    @Test
+    void ball_range(){
+        //given
+        assertThatThrownBy(() -> new BallNumber(10))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("1-9 사이 숫자를 입력하세요.");
     }
 
     @DisplayName("하나의 볼을 비교 - 값만 같으면 BALL")

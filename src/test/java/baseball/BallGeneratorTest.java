@@ -1,13 +1,8 @@
 package baseball;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +17,7 @@ public class BallGeneratorTest {
         Balls comBalls = ballGenerator.generateBalls();
 
         //then
-        assertThat(comBalls.getBalls().stream().map(Ball::getNum)
+        assertThat(comBalls.getBalls().stream().map(Ball::getBallNum)
                 .allMatch(num -> 1 <= num && num <= 9)).isTrue();
     }
 
@@ -33,18 +28,16 @@ public class BallGeneratorTest {
         Balls comBalls = ballGenerator.generateBalls();
 
         //when, then
-        assertThat(comBalls.getBalls().stream().map(Ball::getNum)
+        assertThat(comBalls.getBalls().stream().map(Ball::getBallNum)
                 .distinct().count()).isEqualTo(3);
     }
     @DisplayName("생성된 볼이 길이 테스트")
     @Test
     void genrateBalls_length() {
         //given
-
-        //when
         Balls comBalls = ballGenerator.generateBalls();
 
-        //then
+        //when, then
         assertThat(comBalls.getBalls().size()).isEqualTo(3);
     }
 }

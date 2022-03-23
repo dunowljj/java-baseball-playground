@@ -1,25 +1,16 @@
 package baseball;
 
-public class Ball {
-
+public class Ball{
 
     private int index;
-    private int num;
 
-    public int getNum() {
-        return num;
-    }
 
-    public int getIndex() {
-        return index;
-    }
 
-    public Ball() {
-    }
+    private BallNumber ballNum;
 
     public Ball(int index, int num) {
         this.index = index;
-        this.num = num;
+        this.ballNum = new BallNumber(num);
     }
 
     public BallStatus check(Ball userBall) {
@@ -38,14 +29,21 @@ public class Ball {
     }
 
     private boolean isBall(Ball user) {
-        return num == user.getNum() && index != user.getIndex();
+        return ballNum.getNo() == user.getBallNum() && index != user.getIndex();
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ball ball = (Ball) o;
-        return index == ball.index && num == ball.num;
+        return index == ball.index && ballNum.getNo() == ball.ballNum.getNo();
+    }
+
+    public int getIndex() {
+        return index;
+    }
+    public int getBallNum() {
+        return ballNum.getNo();
     }
 
 }
