@@ -16,7 +16,7 @@ public class BallsTest {
         comBalls = new Balls(Arrays.asList(1, 2, 3));
     }
 
-    @DisplayName("play_받아온 결과 확인 : 1볼")
+    @DisplayName("play_볼들끼리 비교한 결과 테스트 : 1볼")
     @Test
     void play_1BALL() {
         //given, when
@@ -26,7 +26,7 @@ public class BallsTest {
         assertThat(playResult.getBall()).isEqualTo(1);
     }
 
-    @DisplayName("play_받아온 결과 확인 : 1스트라이크")
+    @DisplayName("play_볼들끼리 비교한 결과 테스트 : 1스트라이크")
     @Test
     void play_1STRIKE() {
         //given, when
@@ -36,7 +36,7 @@ public class BallsTest {
         assertThat(playResult.getStrike()).isEqualTo(1);
     }
 
-    @DisplayName("play_받아온 결과 확인 : 1볼 1스크라이크")
+    @DisplayName("play_볼들끼리 비교한 결과 테스트 : 1볼 1스크라이크")
     @Test
     void play_1BALL1STRIKE() {
         //given, when
@@ -47,7 +47,7 @@ public class BallsTest {
         assertThat(playResult.getStrike()).isEqualTo(1);
     }
 
-    @DisplayName("play_받아온 결과 확인: 3스트라이크")
+    @DisplayName("play_볼들끼리 비교한 결과 테스트: 3스트라이크")
     @Test
     void play_3STRIKE() {
         //given, when
@@ -57,7 +57,7 @@ public class BallsTest {
         assertThat(playResult.getStrike()).isEqualTo(3);
     }
 
-    @DisplayName("play_받아온 결과 확인: 낫싱")
+    @DisplayName("play_볼들끼리 비교한 결과 테스트: 낫싱")
     @Test
     void play_nothing() {
         //given, when
@@ -68,7 +68,7 @@ public class BallsTest {
         assertThat(playResult.getStrike()).isEqualTo(0);
     }
 
-    @DisplayName("볼들과 볼 하나 비교 - BALL")
+    @DisplayName("check_볼들과 볼 하나 비교 테스트 - BALL")
     @Test
     void check_ball() {
         //given
@@ -81,7 +81,7 @@ public class BallsTest {
         assertThat(ballType).isEqualTo(BallStatus.BALL);
     }
 
-    @DisplayName("볼들과 볼 하나 비교 - STRIKE")
+    @DisplayName("check_볼들과 볼 하나 비교 테스트 - STRIKE")
     @Test
     void check_strike() {
         //given
@@ -94,7 +94,7 @@ public class BallsTest {
         assertThat(ballType).isEqualTo(BallStatus.STRIKE);
     }
 
-    @DisplayName("볼들과 볼 하나 비교 - NOTHING")
+    @DisplayName("check_볼들과 볼 하나 비교 테스트 - NOTHING")
     @Test
     void check_nothing() {
         //given

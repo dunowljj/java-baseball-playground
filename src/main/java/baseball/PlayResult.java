@@ -4,11 +4,10 @@ public class PlayResult {
     private int ball = 0;
     private int strike = 0;
 
-
     public void count(BallStatus ballStatus) {
-
         if (isBALL(ballStatus)) {
             ball++;
+            return;
         }
         if (isSTRIKE(ballStatus)) {
             strike++;
@@ -24,40 +23,37 @@ public class PlayResult {
 
     public String getMessage() {
         if (isCorrect()) {
-            return getStrike() + "스트라이크\n3개의 숫자를 모두 맞히셨습니다!";
+            return strike + "스트라이크\n3개의 숫자를 모두 맞히셨습니다!";
         }
         if (isNOTHING()) {
             return "nothing";
         }
         if (hasBothBALLAndSTRIKE()) {
-            return getBall() + "볼 " + getStrike() + "스트라이크";
+            return ball + "볼 " + strike + "스트라이크";
         }
         if (hasOnlyBALL()) {
-            return getBall() + "볼";
+            return ball + "볼";
         }
         if (hasOnlySTRIKE()) {
-            return getStrike() + "스트라이크";
+            return strike + "스트라이크";
         }
         return "에러";
     }
 
     public boolean isCorrect() {
-        return this.getStrike() == 3;
+        return strike == 3;
     }
-
     private boolean isNOTHING() {
-        return this.getBall() == 0 && this.getStrike() == 0;
+        return ball == 0 && strike == 0;
     }
-
     private boolean hasBothBALLAndSTRIKE() {
-        return this.getBall() > 0 && this.getStrike() > 0;
+        return ball > 0 && strike > 0;
     }
-
     private boolean hasOnlySTRIKE() {
-        return this.getBall() == 0 && this.getStrike() > 0;
+        return ball == 0 && strike > 0;
     }
     private boolean hasOnlyBALL() {
-        return this.getBall() > 0 && this.getStrike() == 0;
+        return ball > 0 && strike == 0;
     }
 
     public int getBall() {
@@ -66,9 +62,4 @@ public class PlayResult {
     public int getStrike() {
         return strike;
     }
-
-
-
-
-
 }

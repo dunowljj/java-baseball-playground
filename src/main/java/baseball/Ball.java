@@ -3,9 +3,6 @@ package baseball;
 public class Ball{
 
     private int index;
-
-
-
     private BallNumber ballNum;
 
     public Ball(int index, int num) {
@@ -23,15 +20,12 @@ public class Ball{
         //아무것도 안 걸리면 NOTHING이다.
         return BallStatus.NOTHING;
     }
-
+    private boolean isBall(Ball user) {
+        return ballNum.getNo() == user.getBallNumValue() && index != user.getIndex();
+    }
     private boolean isSTRIKE(Ball user) {
         return this.equals(user);
     }
-
-    private boolean isBall(Ball user) {
-        return ballNum.getNo() == user.getBallNum() && index != user.getIndex();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,7 +37,7 @@ public class Ball{
     public int getIndex() {
         return index;
     }
-    public int getBallNum() {
+    public int getBallNumValue() {
         return ballNum.getNo();
     }
 

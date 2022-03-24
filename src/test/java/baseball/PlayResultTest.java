@@ -4,9 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class PlayResultTest {
     PlayResult playResult;
@@ -34,7 +33,7 @@ public class PlayResultTest {
     }
 
 
-    @DisplayName("play_받아온 결과 확인 : 1볼")
+    @DisplayName("play_결과 메시지 확인 : 1볼")
     @Test
     void play_1BALL(){
         //given
@@ -47,7 +46,7 @@ public class PlayResultTest {
         //then
         assertThat(playResult.getMessage()).isEqualTo("1볼");
     }
-    @DisplayName("play_받아온 결과 확인 : 1스트라이크")
+    @DisplayName("play_결과 메시지 확인 : 1스트라이크")
     @Test
     void play_1STRIKE(){
         //given
@@ -60,7 +59,7 @@ public class PlayResultTest {
         //then
         assertThat(playResult.getMessage()).isEqualTo("1스트라이크");
     }
-    @DisplayName("play_받아온 결과 확인 : 1볼 1스크라이크")
+    @DisplayName("play_볼,스트라이크 판정에 대한 결과 메시지 테스트  : 1볼 1스크라이크")
     @Test
     void play_1BALL1STRIKE(){
         //given
@@ -75,7 +74,7 @@ public class PlayResultTest {
         //then
         assertThat(playResult.getMessage()).isEqualTo("1볼 1스트라이크");
     }
-    @DisplayName("play_받아온 결과 확인: 3스트라이크")
+    @DisplayName("play_볼,스트라이크 판정에 대한 결과 메시지 테스트 : 3스트라이크")
     @Test
     void play_3STRIKE(){
         //given
@@ -91,7 +90,7 @@ public class PlayResultTest {
         assertThat(playResult.getMessage()).isEqualTo("3스트라이크\n3개의 숫자를 모두 맞히셨습니다!");
 
     }
-    @DisplayName("play_받아온 결과 확인: 낫싱")
+    @DisplayName("play_볼,스트라이크 판정에 대한 결과 메시지 테스트 : 낫싱")
     @Test
     void play_nothing(){
         //given
@@ -106,7 +105,7 @@ public class PlayResultTest {
     }
 
 
-    @DisplayName("count_받아온 결과 확인 : 1볼")
+    @DisplayName("count_볼들끼리 비교한 결과 - 볼,스트라이크 개수 테스트 : 1볼")
     @Test
     void count_1BALL(){
         //given
@@ -119,7 +118,7 @@ public class PlayResultTest {
         assertThat(playResult.getBall()).isEqualTo(1);
         assertThat(playResult.getStrike()).isEqualTo(0);
     }
-    @DisplayName("count_받아온 결과 확인 : 1스트라이크")
+    @DisplayName("count_볼들끼리 비교한 결과 - 볼,스트라이크 개수 테스트 : 1스트라이크")
     @Test
     void count_1STRIKE(){
         //given
@@ -133,7 +132,7 @@ public class PlayResultTest {
         assertThat(playResult.getBall()).isEqualTo(0);
         assertThat(playResult.getStrike()).isEqualTo(1);
     }
-    @DisplayName("count_받아온 결과 확인 : 1볼 1스크라이크")
+    @DisplayName("count_볼들끼리 비교한 결과 - 볼,스트라이크 개수 테스트 : 1볼 1스크라이크")
     @Test
     void count_1BALL1STRIKE(){
         //given
@@ -149,7 +148,7 @@ public class PlayResultTest {
         assertThat(playResult.getBall()).isEqualTo(1);
         assertThat(playResult.getStrike()).isEqualTo(1);
     }
-    @DisplayName("count_받아온 결과 확인: 3스트라이크")
+    @DisplayName("count_볼들끼리 비교한 결과 - 볼,스트라이크 개수 테스트: 3스트라이크")
     @Test
     void count_3STRIKE(){
         //given
@@ -165,7 +164,7 @@ public class PlayResultTest {
         assertThat(playResult.getBall()).isEqualTo(0);
         assertThat(playResult.getStrike()).isEqualTo(3);
     }
-    @DisplayName("count_받아온 결과 확인: 낫싱")
+    @DisplayName("count_볼들끼리 비교한 결과 - 볼,스트라이크 개수 테스트: 낫싱")
     @Test
     void count_nothing(){
         //given

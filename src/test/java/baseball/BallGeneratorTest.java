@@ -17,7 +17,7 @@ public class BallGeneratorTest {
         Balls comBalls = ballGenerator.generateQuestion();
 
         //then
-        assertThat(comBalls.getBalls().stream().map(Ball::getBallNum)
+        assertThat(comBalls.getBalls().stream().map(Ball::getBallNumValue)
                 .allMatch(num -> 1 <= num && num <= 9)).isTrue();
     }
 
@@ -28,7 +28,7 @@ public class BallGeneratorTest {
         Balls comBalls = ballGenerator.generateQuestion();
 
         //when, then
-        assertThat(comBalls.getBalls().stream().map(Ball::getBallNum)
+        assertThat(comBalls.getBalls().stream().map(Ball::getBallNumValue)
                 .distinct().count()).isEqualTo(3);
     }
     @DisplayName("생성된 볼이 길이 테스트")

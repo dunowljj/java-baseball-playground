@@ -1,6 +1,6 @@
 package baseball;
 
-import baseball.util.InputValidation;
+// import baseball.util.InputValidation;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -8,29 +8,42 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Baseball {
+    public static final String THE_NUMBER_RESTART = "1";
+    public static final String THE_NUMBER_QUIT = "2";
+    private boolean isCorrect;
+    private boolean wantRestart = true;
+    private int gameCount = 1;
+    private int submitCount = 1;
     Scanner sc = new Scanner(System.in);
 
     public void startGame() {
-        BallGenerator generator = new BallGenerator();
-        Balls question = generator.generateQuestion();
+        while(wantRestart){
+            System.out.println("❗️"+ gameCount +"번째 게임");
 
-        playUntilCorrect(question);
-    }
-
-    private void playUntilCorrect(Balls question) {
-        while (true) {
-            System.out.println("숫자를 입력해 주세요 : ");
-
-            List<Integer> userBalls = refineInput(sc.nextLine());
-
-            PlayResult result = question.play(userBalls);
-
-            System.out.println(result.getMessage());
-
-            askRetryIfCorrect(result);
+            BallGenerator generator = new BallGenerator();
+            Balls question = generator.generateQuestion();
+            isCorrect = false;
+            submitCount = 0;
+            playUntilCorrect(question);
         }
     }
 
+    private void playUntilCorrect(Balls question) {
+        while (!isCorrect) {
+            PlayResult result = play(question);
+            askRestartIfAnswerRight(result);
+        }
+    }
+    private PlayResult play(Balls question) {
+        System.out.println("숫자를 입력해 주세요 : ");
+
+        List<Integer> userBalls = refineInput(sc.nextLine());
+        submitCount++;
+
+        PlayResult result = question.play(userBalls);
+        System.out.println(result.getMessage());
+        return result;
+    }
     private List<Integer> refineInput(String input) {
         String validInput = verifyInput(input);
 
@@ -41,40 +54,57 @@ public class Baseball {
         return userBalls;
     }
     private String verifyInput(String input){
-        InputValidation validator = new InputValidation();
+        String validResult;
+        try {
+            ValidInput validInput = new ValidInput(input);
+            validResult = validInput.getInput();
+        } catch (InputMismatchException e){
+            System.out.println(e.getMessage());
+            validResult = verifyInput(sc.nextLine());
+        }
+        return validResult;
+
+       /* InputValidation validator = new InputValidation();
         while(!validator.isValidInput(input)){
             System.out.println("잘못된 입력입니다. 3자리 숫자를 입력하세요. ex) 123");
             input = sc.nextLine();
         }
-        return input;
+        return input;*/
     }
 
-    private void askRetryIfCorrect(PlayResult playResult) {
+    private void askRestartIfAnswerRight(PlayResult playResult) {
         if (playResult.isCorrect()) {
             askUntilValidIn();
         }
     }
     private void askUntilValidIn(){
         try {
-            askRetry();
+            askRestart();
         } catch (InputMismatchException e) {
             System.out.println(e.getMessage());
-            askRetry();
+            askUntilValidIn();
         }
     }
-    private void askRetry() throws InputMismatchException {
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        int response = Integer.parseInt(sc.nextLine());
+    private void askRestart() throws InputMismatchException {
+        System.out.println("시도횟수 : "+submitCount);
+        System.out.println("게임을 " + "새로 시작하려면 " + THE_NUMBER_RESTART
+                +", 종료하려면 "+ THE_NUMBER_QUIT +"를 입력하세요.");
 
-        if (response == 1) {
-            startGame();
+        String response = sc.nextLine();
+
+        isCorrect = true;
+        if (response.equals(THE_NUMBER_RESTART)) {
+            gameCount++;
+            //이전 코드 : startGame();
             return;
         }
-        if (response == 2) {
-            System.exit(0);
+        if (response.equals(THE_NUMBER_QUIT)) {
+            wantRestart = false;
+            return;
+            //이전 코드 : System.exit(0); // 종료보다 플래그가 나을까?
         }
-        throw new InputMismatchException("1또는 2를 입력해주세요. (시작 1, 종료 2)");
+        throw new InputMismatchException(
+                THE_NUMBER_RESTART +"또는 "+ THE_NUMBER_QUIT +"를 입력해주세요. "
+                        +"(시작 "+ THE_NUMBER_RESTART +""+", 종료 "+ THE_NUMBER_QUIT +")");
     }
-
-
 }
