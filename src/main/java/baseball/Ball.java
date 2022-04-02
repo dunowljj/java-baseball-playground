@@ -11,7 +11,7 @@ public class Ball{
     }
 
     public BallStatus check(Ball userBall) {
-        if (this.isBall(userBall)) {
+        if (this.isBALL(userBall)) {
             return BallStatus.BALL;
         }
         if (this.isSTRIKE(userBall)) {
@@ -20,7 +20,7 @@ public class Ball{
         //아무것도 안 걸리면 NOTHING이다.
         return BallStatus.NOTHING;
     }
-    private boolean isBall(Ball user) {
+    private boolean isBALL(Ball user) {
         return ballNum.getNo() == user.getBallNumValue() && index != user.getIndex();
     }
     private boolean isSTRIKE(Ball user) {
