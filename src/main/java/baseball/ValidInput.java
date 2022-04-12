@@ -21,7 +21,7 @@ public class ValidInput {
     private boolean isValidInput(String input) {
         return Pattern.matches(INPUT_REGEX, input);
     }
-    public String getInput() {
+    public String checkInput() {
         return input;
     }
 

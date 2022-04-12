@@ -19,6 +19,10 @@ public class Balls {
         return balls;
     }
 
+    public boolean isFinish(PlayResult playResult){
+        return playResult.isCorrect();
+    }
+
     public PlayResult play(List<Integer> balls) {
         PlayResult playResult = new PlayResult();
         Balls userBalls = new Balls(balls);
